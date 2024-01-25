@@ -8,7 +8,7 @@ con las que se pretende mejorar el diseño de clases implementado hasta ahora.
 
 Para ello te muestro un diagrama de clases para el mismo y poco a poco te iré explicando los diferentes pasos a realizar:
 
-![Diagrama de clases para reservasHotel](https://github.com/andresrubiodelrio/ReservasHotel_v3/blob/master/src/main/resources/uml/reservasHotel_v3.png)
+![Diagrama de clases para reservasHotel](/src/main/resources/uml/reservasHotel_v3.png)
 
 #### Primeros Pasos
 1. Lo primero que debes hacer es realizar un **fork** del repositorio donde he colocado el esqueleto de este proyecto.
