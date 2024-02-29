@@ -24,26 +24,24 @@ public class Habitacion {
 
     public static final int MAX_NUMERO_PLANTA = 3;
 
-    private String identificador;
+    protected String identificador;
 
-    private int planta;
+    protected int planta;
 
-    private int puerta;
+    protected int puerta;
 
-    private double precio;
+    protected double precio;
 
-    private TipoHabitacion tipoHabitacion;
 
     //Constructores
 
-    public Habitacion(int planta, int puerta, double precio,
-                      TipoHabitacion tipoHabitacion){
+    public abstract Habitacion(int planta, int puerta, double precio){
 
         setPlanta(planta);
         setPuerta(puerta);
         setPrecio(precio);
-        setTipoHabitacion(tipoHabitacion);
         setIdentificador(String.valueOf(planta)+puerta);
+        setIdentificador();
     }
 
     public Habitacion(Habitacion habitacion){
@@ -53,14 +51,20 @@ public class Habitacion {
         setPlanta(habitacion.getPlanta());
         setPuerta(habitacion.getPuerta());
         setPrecio(habitacion.getPrecio());
-        setTipoHabitacion(habitacion.getTipoHabitacion());
         setIdentificador(String.valueOf(habitacion.getPlanta())+
                 habitacion.getPuerta());
+        setIdentificador();
         }
+
+    public abstract int getNumeroMaximoPersonas ();
 
     //M�todos Get y Set
     public String getIdentificador() {
         return identificador;
+    }
+
+    public void setIdentificador(){
+        this.identificador = String.valueOf(getPlanta()+getPuerta());
     }
 
     public void setIdentificador(String identificador){
@@ -114,27 +118,15 @@ public class Habitacion {
 
     }
 
-    public TipoHabitacion getTipoHabitacion() {
-        return tipoHabitacion;
-    }
-
-    private void setTipoHabitacion (TipoHabitacion tipoHabitacion) {
-        if (tipoHabitacion == null) {
-            throw new NullPointerException("ERROR: No se puede establecer" +
-                    " un tipo de habitaci�n nula.");
-        }
-        this.tipoHabitacion = tipoHabitacion;
-    }
-
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Habitacion habitacion = (Habitacion) obj;
+        Habitacion habitacion = (Habitacion) o;
         return identificador.equals(habitacion.identificador);
     }
 
@@ -148,6 +140,6 @@ public class Habitacion {
         return String.format("identificador=%s (%d-%d), precio de habitacion=%s, " +
                         "tipo de habitaci�n=%s",
                 this.identificador, this.planta, this.puerta,
-                this.precio, this.tipoHabitacion);
+                this.precio);
     }
 }
