@@ -25,6 +25,7 @@ public class Habitaciones implements IHabitaciones {
     }
 
     //Métodos
+    @Override
     public List<Habitacion> get(){
         List<Habitacion> copiaColeccionHabitaciones = new ArrayList<>();
         for (Iterator<Habitacion> i = coleccionHabitaciones.iterator();
@@ -45,6 +46,7 @@ public class Habitaciones implements IHabitaciones {
             return copiaColeccionHabitaciones;
     }
 
+    @Override
     public List<Habitacion> get (TipoHabitacion tipoHabitacion){
         List<Habitacion> copiaColeccionHabitacionesTipo = new ArrayList<>();
         for (Iterator<Habitacion> i = get().iterator();i.hasNext();){
@@ -65,12 +67,14 @@ public class Habitaciones implements IHabitaciones {
         }
         return copiaColeccionHabitacionesTipo;
     }
+    @Override
     public int getTamano() {
         return coleccionHabitaciones.size();
     }
 
+    @Override
     public void insertar(Habitacion habitacion) throws
-            OperationNotSupportedException {
+            IllegalArgumentException {
         if (habitacion == null) {
             throw new NullPointerException("ERROR: No se puede insertar " +
                     "una habitación nula.");
@@ -90,11 +94,12 @@ public class Habitaciones implements IHabitaciones {
             }
         }
         else {
-            throw new OperationNotSupportedException("ERROR: Ya existe una " +
+            throw new IllegalArgumentException("ERROR: Ya existe una " +
                     "habitación con ese identificador.");
         }
     }
 
+    @Override
     public Habitacion buscar(Habitacion habitacion){
         int indice = coleccionHabitaciones.indexOf(habitacion);
         if (indice == -1) {
@@ -112,15 +117,16 @@ public class Habitaciones implements IHabitaciones {
         }
     }
 
+    @Override
     public void borrar(Habitacion habitacion) throws
-            OperationNotSupportedException {
+            IllegalArgumentException {
         if (habitacion == null) {
             throw new NullPointerException("ERROR: No se puede borrar " +
                     "una habitación nula.");
         }
         int indice = coleccionHabitaciones.indexOf(habitacion);
         if (indice == -1) {
-            throw new OperationNotSupportedException("ERROR: No existe " +
+            throw new IllegalArgumentException("ERROR: No existe " +
                     "ningún aula con ese nombre.");
         } else {
             coleccionHabitaciones.remove(indice);
