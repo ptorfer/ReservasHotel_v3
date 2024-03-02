@@ -139,7 +139,7 @@ public class Habitacion {
     public String toString() {
         return String.format("identificador=%s (%d-%d), precio de habitacion=%s, " +
                         "tipo de habitaci�n=%s",
-                this.identificador, this.planta, this.puerta,
-                this.precio);
+                this.getIdentificador(), this.getPlanta(), this.getPuerta(),
+                this.getPrecio());
     }
 }
