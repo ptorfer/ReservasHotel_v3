@@ -123,10 +123,7 @@ public class Habitacion {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Habitacion habitacion = (Habitacion) o;
+        if (!(o instanceof Habitacion habitacion)) return false;
         return identificador.equals(habitacion.identificador);
     }
 
