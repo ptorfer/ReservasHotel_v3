@@ -66,18 +66,16 @@ public class Reserva {
             throw new NullPointerException("ERROR: No es posible copiar una " +
                     "reserva nula.");
         }
-        setHuesped(huesped);
-        setHabitacion(habitacion);
-        setRegimen(regimen);
-        setFechaInicioReserva(fechaInicioReserva);
-        setfechaFinReserva(fechaFinReserva);
-        setNumeroPersonas(numeroPersonas);
-        this.checkIn = null;
-        this.checkOut = null;
+        setHuesped(reserva.getHuesped());
+        setHabitacion(reserva.getHabitacion());
+        setRegimen(reserva.getRegimen());
+        setFechaInicioReserva(reserva.getFechaInicioReserva());
+        setfechaFinReserva(reserva.getFechaFinReserva());
+        setNumeroPersonas(reserva.getNumeroPersonas());
+        this.checkIn = reserva.getCheckIn();
+        this.checkOut = reserva.getCheckOut();
         setPrecio();
     }
-
-    //Get y set
 
     public Huesped getHuesped () {
         return huesped;
@@ -85,7 +83,7 @@ public class Reserva {
 
     public void setHuesped (Huesped huesped){
         if (huesped == null) {
-            throw new NullPointerException("ERROR: El hu�sped de una reserva no " +
+            throw new NullPointerException("ERROR: El huésped de una reserva no " +
                     "puede ser nulo.");
         }
         this.huesped = huesped;
@@ -97,10 +95,21 @@ public class Reserva {
 
     public void setHabitacion (Habitacion habitacion) {
         if (habitacion == null){
-            throw new NullPointerException("ERROR: La habitaci�n de una " +
-                    "reserva no puede ser nula.");
+            throw new NullPointerException("ERROR: La habitación de una reserva " +
+                    "no puede ser nula.");
         }
-        this.habitacion = habitacion;
+        if (habitacion instanceof Simple){
+            this.habitacion = new Simple ((Simple)habitacion);
+        }
+        else if (habitacion instanceof Doble){
+            this.habitacion = new Doble ((Doble)habitacion);
+        }
+        else if (habitacion instanceof Triple){
+            this.habitacion = new Triple ((Triple)habitacion);
+        }
+        else {
+            this.habitacion = new Suite((Suite) habitacion);
+        }
     }
 
     public Regimen getRegimen (){
@@ -109,8 +118,8 @@ public class Reserva {
 
     public void setRegimen (Regimen regimen){
         if (regimen == null){
-            throw new NullPointerException("ERROR: El r�gimen de una reserva" +
-                    " no puede ser nulo.");
+            throw new NullPointerException("ERROR: El régimen de una reserva no " +
+                    "puede ser nulo.");
         }
         this.regimen =regimen;
     }
@@ -206,15 +215,15 @@ public class Reserva {
 
     public void setNumeroPersonas(int numeroPersonas) {
         if (numeroPersonas <= 0){
-            throw new IllegalArgumentException("ERROR: El n�mero de personas " +
-                    "de una reserva no puede ser menor o igual a 0.");
+            throw new IllegalArgumentException("ERROR: El número de personas de " +
+                    "una reserva no puede ser menor o igual a 0.");
         }
-        else if (numeroPersonas > habitacion.getTipoHabitacion().getNumeroMaximoPersonas()) {
-            throw new IllegalArgumentException("ERROR: El n�mero de personas de " +
-                    "una reserva no puede superar al m�ximo de personas " +
-                    "establacidas para el tipo de habitaci�n reservada.");
+        else if (numeroPersonas > habitacion.getNumeroMaximoPersonas()) {
+            throw new IllegalArgumentException("ERROR: El número de personas de" +
+                    " una reserva no puede superar al máximo de personas " +
+                    "establacidas para el tipo de habitación reservada.");
         }
-        this.numeroPersonas = numeroPersonas;
+        this.numeroPersonas = getNumeroPersonas();
     }
 
     //Métodos equals,hash,toString
@@ -222,10 +231,11 @@ public class Reserva {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Reserva reserva2)) return false;
-        return habitacion.equals(reserva2.habitacion) &&
-                fechaInicioReserva.isEqual(reserva2.fechaInicioReserva);
+        if (!(o instanceof Reserva reserva)) return false;
+        return habitacion.equals(reserva.habitacion) &&
+                fechaInicioReserva.isEqual(reserva.fechaInicioReserva);
     }
+
 
     @Override
     public int hashCode() {
@@ -234,12 +244,11 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return String.format("Huesped: %s %s Habitaci�n:%s - %s Fecha Inicio " +
+        return String.format("Huesped: %s %s Habitación:%s - %s Fecha Inicio " +
                         "Reserva: %s Fecha Fin Reserva: %s Checkin: %s " +
                         "Checkout: %s Precio: %.2f Personas: %d",
                 this.huesped.getNombre(), this.huesped.getDni(),
                 this.habitacion.getIdentificador(),
-                this.habitacion.getTipoHabitacion(),
                 this.fechaInicioReserva.format(DateTimeFormatter.
                         ofPattern(FORMATO_FECHA_RESERVA)),
                 this.fechaFinReserva.format(DateTimeFormatter.
@@ -250,6 +259,6 @@ public class Reserva {
                 (!(this.checkOut==null))? getCheckOut().format(DateTimeFormatter.
                         ofPattern(FORMATO_FECHA_HORA_RESERVA)):
                         "No registrado",
-                this.precio, 1);
+                this.getPrecio(), 1);
     }
 }
