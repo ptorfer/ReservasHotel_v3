@@ -1,21 +1,15 @@
 package org.iesalandalus.programacion.reservashotel.modelo.dominio;
 
 public enum TipoHabitacion {
-    ;
 
-    //Atributos
+        SUITE("SUITE"),
+        SIMPLE("SIMPLE"),
+        DOBLE("DOBLE"),
+        TRIPLE("TRIPLE");
+
+
+    //Atributo
     private String cadenaAmostrar;
-
-    SUITE("SUITE"),
-
-    SIMPLE("SIMPLE"),
-
-    DOBLE("DOBLE"),
-
-    TRIPLE("TRIPLE");
-
-
-
 
     //Constructor
     TipoHabitacion(String cadenaAmostrar) {
@@ -25,11 +19,9 @@ public enum TipoHabitacion {
 
     //Método to String
 
-
     @Override
     public String toString() {
-        return "TipoHabitacion{" +
-                "cadenaAmostrar='" + cadenaAmostrar + '\'' +
-                '}';
+        return String.format("Tipo Habitacion: %s",
+                this.cadenaAmostrar);
     }
 }

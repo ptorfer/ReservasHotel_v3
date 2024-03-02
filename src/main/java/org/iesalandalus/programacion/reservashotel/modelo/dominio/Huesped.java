@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class Huesped {
 
-    //Creaci�n de atributos.
+    //Atributos.
     private static final String ER_TELEFONO = "[9876]\\d{8}";
     private static final String ER_CORREO = ".+@[a-zA-Z]+\\.[a-zA-Z]+";
     private static final String ER_DNI = "(\\d{8})([A-HJ-NP-TV-Z])";
@@ -19,7 +19,7 @@ public class Huesped {
     private String dni;
     private LocalDate fechaNacimiento;
 
-    //Creación del constructor.
+    //Constructores
 
     public Huesped(String nombre, String dni, String correo, String telefono,
                    LocalDate fechaNacimiento) {
@@ -31,10 +31,10 @@ public class Huesped {
         setFechaNacimiento(fechaNacimiento);
     }
 
-    //Creación constructor copia.
     public Huesped(Huesped huesped){
         if (huesped == null) {
-            throw new NullPointerException("ERROR: No es posible copiar un hu�sped nulo.");
+            throw new NullPointerException("ERROR: No es posible copiar un " +
+                    "huésped nulo.");
         }
         setNombre(huesped.getNombre());
         setDni(huesped.getDni());
@@ -51,17 +51,19 @@ public class Huesped {
         this.nombre = formateaNombre(nombre);
     }
 
-    //Creación método formateaNombre
+    //Métodos
     private String formateaNombre(String nombre) {
 
         String palabra = "";
         String resultado = "";
 
         if (nombre == null)
-            throw new NullPointerException("ERROR: El nombre de un hu�sped no puede ser nulo.");
+            throw new NullPointerException("ERROR: El nombre de un huésped no "
+                    + "puede ser nulo.");
 
         if (nombre.isEmpty())
-            throw new IllegalArgumentException("ERROR: El nombre de un hu�sped no puede estar vac�o.");
+            throw new IllegalArgumentException("ERROR: El nombre de un huésped "
+                    + "no puede estar vacío.");
 
         String[] palabras = nombre.trim().toLowerCase().split("\\s+");
 
@@ -99,10 +101,12 @@ public class Huesped {
 
     public void setCorreo(String correo) {
         if (correo == null) {
-            throw new NullPointerException("ERROR: El correo de un hu�sped no puede ser nulo.");
+            throw new NullPointerException("ERROR: El correo de un huésped no" +
+                    "puede ser nulo.");
         }
         if (!correo.matches(ER_CORREO)) {
-            throw new IllegalArgumentException("ERROR: El correo del hu�sped no tiene un formato v�lido.");
+            throw new IllegalArgumentException("ERROR: El correo del huésped no " +
+                    "tiene un formato v�lido.");
         }
         this.correo = correo;
     }
@@ -113,10 +117,12 @@ public class Huesped {
 
     private void setDni(String dni) {
         if (dni == null) {
-            throw new NullPointerException("ERROR: El dni de un hu�sped no puede ser nulo.");
+            throw new NullPointerException("ERROR: El dni de un huésped no puede "
+                    + "ser nulo.");
         }
         if (!dni.matches(ER_DNI)) {
-            throw new IllegalArgumentException("ERROR: El dni del hu�sped no tiene un formato v�lido.");
+            throw new IllegalArgumentException("ERROR: El dni del huésped no tiene"
+                    + " un formato v�lido.");
         }
         this.dni = dni;
     }
@@ -158,7 +164,8 @@ public class Huesped {
 
     private void setFechaNacimiento(LocalDate fechaNacimiento) {
         if (fechaNacimiento == null) {
-            throw new NullPointerException("ERROR: La fecha de nacimiento de un hu�sped no puede ser nula.");
+            throw new NullPointerException("ERROR: La fecha de nacimiento de un " +
+                    "huésped no puede ser nula.");
         }
         this.fechaNacimiento = fechaNacimiento;
     }
@@ -197,7 +204,8 @@ public class Huesped {
     public String toString() {
         return String.format("nombre=%s (%s), DNI=%s, correo=%s, tel�fono=%s," +
         " fecha nacimiento=%s", this.nombre, getIniciales(), this.dni, this.correo,
-        this.telefono, this.fechaNacimiento.format(DateTimeFormatter.ofPattern(FORMATO_FECHA)));
+        this.telefono, this.fechaNacimiento.format(DateTimeFormatter.
+                        ofPattern(FORMATO_FECHA)));
     }
 
 

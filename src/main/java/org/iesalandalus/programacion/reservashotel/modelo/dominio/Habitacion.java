@@ -8,7 +8,7 @@ package org.iesalandalus.programacion.reservashotel.modelo.dominio;
 
 import java.util.Objects;
 
-public class Habitacion {
+public abstract class Habitacion {
 
     //Atributos
 
@@ -35,7 +35,7 @@ public class Habitacion {
 
     //Constructores
 
-    public abstract Habitacion(int planta, int puerta, double precio){
+    public Habitacion(int planta, int puerta, double precio){
 
         setPlanta(planta);
         setPuerta(puerta);
