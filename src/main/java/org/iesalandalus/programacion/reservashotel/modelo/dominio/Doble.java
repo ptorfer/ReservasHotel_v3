@@ -13,7 +13,7 @@ public class Doble extends Habitacion{
     static final int MIN_NUM_CAMAS_INDIVIDUALES=0;
     static final int MAX_NUM_CAMAS_INDIVIDUALES=2;
     static final int MIN_NUM_CAMAS_DOBLES=0;
-    static final int MAX_NUM_CAMAS_DOBLES=2;
+    static final int MAX_NUM_CAMAS_DOBLES=1;
     private int numCamasIndividuales;
     private int numCamasDobles;
 
@@ -67,10 +67,10 @@ public class Doble extends Habitacion{
                     + MAX_NUM_CAMAS_DOBLES);
         }
 
-        if ((getNumCamasIndividuales() != MAX_NUM_CAMAS_INDIVIDUALES &&
-                getNumCamasDobles() != MIN_NUM_CAMAS_DOBLES) ||
-                (getNumCamasIndividuales() != MIN_NUM_CAMAS_INDIVIDUALES &&
-                        getNumCamasDobles() != MAX_NUM_CAMAS_DOBLES)) {
+        if ((getNumCamasIndividuales() > MAX_NUM_CAMAS_INDIVIDUALES &&
+                getNumCamasDobles() < MIN_NUM_CAMAS_DOBLES) ||
+                (getNumCamasIndividuales() < MIN_NUM_CAMAS_INDIVIDUALES &&
+                        getNumCamasDobles() > MAX_NUM_CAMAS_DOBLES)) {
             throw new IllegalArgumentException("ERROR: La distribución de camas en"
                     + " una habitación doble tiene que ser "
                     + MAX_NUM_CAMAS_INDIVIDUALES + " camas individuales y "

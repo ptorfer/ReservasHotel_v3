@@ -6,12 +6,9 @@
 
 package org.iesalandalus.programacion.reservashotel.controlador;
 
-import org.iesalandalus.programacion.reservashotel.modelo.Modelo;
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
-import org.iesalandalus.programacion.reservashotel.vista.Vista;
+import org.iesalandalus.programacion.reservashotel.modelo.*;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
+import org.iesalandalus.programacion.reservashotel.vista.*;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDateTime;
@@ -47,7 +44,7 @@ public class Controlador {
         vista.terminar();
     }
 
-    public void insertar(Huesped huesped) throws OperationNotSupportedException {
+    public void insertar(Huesped huesped) throws IllegalArgumentException {
         modelo.insertar(huesped);
     }
 
@@ -55,7 +52,7 @@ public class Controlador {
         return modelo.buscar(huesped);
     }
 
-    public void borrar(Huesped huesped) throws OperationNotSupportedException {
+    public void borrar(Huesped huesped) throws IllegalArgumentException {
         modelo.borrar(huesped);
     }
 
@@ -64,7 +61,7 @@ public class Controlador {
     }
 
     public void insertar(Habitacion habitacion) throws
-            OperationNotSupportedException {
+            IllegalArgumentException {
         modelo.insertar(habitacion);
     }
 
@@ -73,7 +70,7 @@ public class Controlador {
     }
 
     public void borrar(Habitacion habitacion) throws
-            OperationNotSupportedException {
+            IllegalArgumentException {
         modelo.borrar(habitacion);
     }
 
@@ -85,7 +82,7 @@ public class Controlador {
         return modelo.getHabitaciones(tipoHabitacion);
     }
 
-    public void insertar(Reserva reserva) throws OperationNotSupportedException {
+    public void insertar(Reserva reserva) throws IllegalArgumentException {
         modelo.insertar(reserva);
     }
 
@@ -93,7 +90,7 @@ public class Controlador {
         return modelo.buscar(reserva);
     }
 
-    public void borrar(Reserva reserva) throws OperationNotSupportedException {
+    public void borrar(Reserva reserva) throws IllegalArgumentException {
         modelo.borrar(reserva);
     }
 

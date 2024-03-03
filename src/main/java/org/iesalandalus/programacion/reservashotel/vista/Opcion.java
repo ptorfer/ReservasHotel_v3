@@ -2,40 +2,112 @@ package org.iesalandalus.programacion.reservashotel.vista;
 
 public enum Opcion {
 
-    SALIR("Salir"),
+    SALIR("Salir"){
+        @Override
+        public void ejecutar() {
+            vista.terminar();}
+    },
 
-    INSERTAR_HUESPED("Insertar huésped"),
+    INSERTAR_HUESPED("Insertar huésped"){
+        @Override
+        public void ejecutar() {
+            vista.insertarHuesped();}
+    },
 
-    BUSCAR_HUESPED("Buscar huésped"),
+    BUSCAR_HUESPED("Buscar huésped"){
+        @Override
+        public void ejecutar() {
+            vista.buscarHuesped();}
+    },
 
-    BORRAR_HUESPED("Borrar huésped"),
+    BORRAR_HUESPED("Borrar huésped"){
+        @Override
+        public void ejecutar() {
+            vista.borrarHuesped();}
+    },
 
-    MOSTRAR_HUESPEDES("Mostrar huéspedes"),
+    MOSTRAR_HUESPEDES("Mostrar huéspedes"){
+        @Override
+        public void ejecutar() {
+            vista.mostrarHuespedes();}
+    },
 
-    INSERTAR_HABITACION("Insertar habitación"),
+    INSERTAR_HABITACION("Insertar habitación"){
+        @Override
+        public void ejecutar() {
+            vista.insertarHabitacion();}
+    },
 
-    BUSCAR_HABITACION("Buscar habitación"),
+    BUSCAR_HABITACION("Buscar habitación"){
+        @Override
+        public void ejecutar() {
+            vista.buscarHabitacion();}
+    },
 
-    BORRAR_HABITACION("Borrar habitación"),
+    BORRAR_HABITACION("Borrar habitación"){
+        @Override
+        public void ejecutar() {
+            vista.borrarHabitacion();}
+    },
 
-    MOSTRAR_HABITACIONES("Mostrar habitaciones"),
+    MOSTRAR_HABITACIONES("Mostrar habitaciones"){
+        @Override
+        public void ejecutar() {vista.mostrarHabitaciones();}
+    },
 
-    INSERTAR_RESERVA("Insertar reserva"),
+    INSERTAR_RESERVA("Insertar reserva"){
+        @Override
+        public void ejecutar() {
+            vista.insertarReserva();}
+    },
 
-    ANULAR_RESERVA("Anular reserva"),
+    ANULAR_RESERVA("Anular reserva"){
+        @Override
+        public void ejecutar() {
+            vista.anularReserva();}
+    },
 
-    MOSTRAR_RESERVAS("Mostrar reservas"),
+    MOSTRAR_RESERVAS("Mostrar reservas"){
+        @Override
+        public void ejecutar() {
+            vista.mostrarReservas();}
+    },
 
-    CONSULTAR_DISPONIBILIDAD("Consultar disponibilidad"),
+    LISTAR_RESERVAS_HUESPED("Listar reservas huésped") {
+        @Override
+        public void ejecutar() {
+            vista.mostrarReservasHuesped();}
+    },
+    LISTAR_RESERVAS_TIPO_HABITACION("Listar reservas tipo"
+            + "habitación") {
+        @Override
+        public void ejecutar() {
+            vista.mostrarReservasTipoHabitacion();}
+    },
 
-    REALIZAR_CHECKIN("Realizar checkin"),
+    CONSULTAR_DISPONIBILIDAD("Consultar disponibilidad"){
+        @Override
+        public void ejecutar() {
+            vista.comprobarDisponibilidad();}
+    },
 
-    REALIZAR_CHECKOUT("Realizar checkout");
+    REALIZAR_CHECKIN("Realizar checkin"){
+        @Override
+        public void ejecutar() {
+            vista.realizarCheckin();}
+    },
+
+    REALIZAR_CHECKOUT("Realizar checkout"){
+        @Override
+        public void ejecutar() {
+            vista.realizarCheckOut();}
+    };
 
 
     //Atributos
 
     private String mensajeAMostrar;
+    private static Vista vista;
 
     //Constructor
 
@@ -43,7 +115,12 @@ public enum Opcion {
         this.mensajeAMostrar = mensajeAMostrar;
     }
 
-    //to String
+    protected static void setVista(Vista vista) {
+        Opcion.vista = vista;
+    }
+
+    public abstract void ejecutar();
+
     @Override
     public String toString(){
         return String.format("%d.-%s.",ordinal(),this.mensajeAMostrar);

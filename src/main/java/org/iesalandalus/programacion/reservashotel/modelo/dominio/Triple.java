@@ -88,10 +88,10 @@ public class Triple extends Habitacion {
                     + MIN_NUM_CAMAS_DOBLES + " ni mayor que "
                     + MAX_NUM_CAMAS_DOBLES);
         }
-        if ((getNumCamasIndividuales() != MAX_NUM_CAMAS_INDIVIDUALES &&
-                getNumCamasDobles() != MIN_NUM_CAMAS_DOBLES) ||
-                (getNumCamasIndividuales() != MIN_NUM_CAMAS_INDIVIDUALES &&
-                getNumCamasDobles() != MAX_NUM_CAMAS_DOBLES)){
+        if ((getNumCamasIndividuales() > MAX_NUM_CAMAS_INDIVIDUALES &&
+                getNumCamasDobles() < MIN_NUM_CAMAS_DOBLES) ||
+                (getNumCamasIndividuales() < MIN_NUM_CAMAS_INDIVIDUALES &&
+                getNumCamasDobles() > MAX_NUM_CAMAS_DOBLES)){
             throw new IllegalArgumentException("ERROR: La distribución de camas " +
                     "en una habitación triple tiene que ser "
                     + Triple.MAX_NUM_CAMAS_INDIVIDUALES +" camas individuales y "

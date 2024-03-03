@@ -8,6 +8,7 @@ package org.iesalandalus.programacion.reservashotel.vista;
 
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
 import org.iesalandalus.programacion.utilidades.Entrada;
+import static org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -30,7 +31,7 @@ public class Consola {
     public static Opcion elegirOpcion() {
         int ordinalOpcion;
         do {
-            System.out.println("Elige una opcion");
+            System.out.println("Elige una opción");
             ordinalOpcion = Entrada.entero();
         }
         while (!(ordinalOpcion >= 0 && ordinalOpcion <= (Opcion.values().length - 1)));
@@ -68,7 +69,7 @@ public class Consola {
         }
         while (dni.trim().isEmpty());
 
-        String mensaje = "Introduce la fecha de nacimiento del hu�sped (%s): ";
+        String mensaje = "Introduce la fecha de nacimiento del huésped (%s): ";
         LocalDate fechaNacimiento = leerFecha(mensaje);
 
         huesped = new Huesped (nombre, telefono, correo, dni, fechaNacimiento);
@@ -139,6 +140,11 @@ public class Consola {
         int planta;
         int puerta;
         double precio;
+        int camasIndividuales;
+        int camasDobles;
+        int banos;
+        char Jacuzzi;
+        boolean tieneJacuzzi;
 
         do {
             System.out.print("Indique la planta de la habitación: ");
@@ -163,17 +169,64 @@ public class Consola {
 
         TipoHabitacion tipoHabitacion = leerTipoHabitacion();
 
-        habitacion = new Habitacion(planta, puerta, precio, tipoHabitacion);
+        if (tipoHabitacion == SIMPLE) {
+            habitacion = new Simple (planta, puerta, precio);
+            return new Simple ((Simple) habitacion);
+        }
 
-        return new Habitacion(habitacion);
+        else if (tipoHabitacion == DOBLE){
+            System.out.print("Indique el número de camas (1 - Doble) o " +
+                    "(2 - Individuales):");
+            System.out.print("Camas individuales (0 ó 2):");
+            camasIndividuales = Entrada.entero();
+            System.out.print("Camas dobles (0 ó 1):");
+            camasDobles = Entrada.entero();
+
+            habitacion = new Doble (planta, puerta, precio, camasIndividuales,
+                    camasDobles);
+            return new Doble ((Doble) habitacion);
+        }
+        else if (tipoHabitacion ==TRIPLE){
+            System.out.print("Indique el número de camas"
+                    + "(2 - Individuales y 1 - Doble) o "
+                    + "(3 - Individuales):");
+            System.out.print("Camas individuales ( 2 ó 3):");
+            camasIndividuales = Entrada.entero();
+            System.out.print("Camas dobles (0 ó 1):");
+            camasDobles = Entrada.entero();
+
+            System.out.print("Introduce el n�mero de ba�os (2 ó 3):");
+            banos = Entrada.entero();
+
+            habitacion = new Triple(planta, puerta, precio, banos,
+                    camasIndividuales, camasDobles);
+
+            return new Triple((Triple) habitacion);
+        }
+        else {
+
+            System.out.print("Indique el número de baños (1 ó 3):");
+            banos = Entrada.entero();
+
+            do {
+                System.out.print("Desea baño con jacuzzi (S/N):");
+                Jacuzzi = Entrada.caracter();
+            }
+            while (Jacuzzi != 'S' && Jacuzzi != 'N');
+
+            tieneJacuzzi = Jacuzzi == 'S';
+            habitacion = new Suite(planta, puerta, precio, banos, tieneJacuzzi);
+
+            return new Suite((Suite) habitacion);
+        }
+
     }
 
     public static Habitacion leerHabitacionPorIdentificador() {
-        Habitacion habitacion;
+        Simple habitacion;
         int planta;
         int puerta;
         double precio = 70.0;
-        TipoHabitacion tipoHabitacion = TipoHabitacion.SIMPLE;
 
         do {
             System.out.print("Indique la planta de la habitación: ");
@@ -189,9 +242,9 @@ public class Consola {
         while (puerta < Habitacion.MIN_NUMERO_PUERTA ||
                 puerta > Habitacion.MAX_NUMERO_PUERTA);
 
-        habitacion = new Habitacion(planta, puerta, precio, tipoHabitacion);
+        habitacion = new Simple(planta, puerta, precio);
 
-        return new Habitacion(habitacion);
+        return new Simple(habitacion);
     }
 
     public static TipoHabitacion leerTipoHabitacion(){
@@ -219,32 +272,6 @@ public class Consola {
         } while (!(ordinalRegimen >= 0 && ordinalRegimen <=
                 (Regimen.values().length - 1)));
         return Regimen.values()[ordinalRegimen];
-    }
-
-    public static Reserva leerReserva() {
-        Reserva reserva;
-        Huesped huesped;
-        Habitacion habitacion;
-        Regimen regimen;
-        int numeroPersonas;
-
-        huesped = leerHuesped();
-        habitacion = leerHabitacion();
-        regimen = leerRegimen();
-
-        String mensaje = "Indique la fecha de inicio de la reserva (%s): ";
-        LocalDate fechaInicioReserva = leerFecha(mensaje);
-
-        String mensaje2 = "Indique la fecha de fin de la reserva (%s): ";
-        LocalDate fechaFinReserva = leerFecha(mensaje2);
-
-        System.out.print("Indique el número de personas: ");
-        numeroPersonas = Entrada.entero();
-
-        reserva = new Reserva(huesped, habitacion, regimen, fechaInicioReserva,
-                fechaFinReserva, numeroPersonas);
-
-        return new Reserva(reserva);
     }
 
 }
