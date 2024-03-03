@@ -7,12 +7,13 @@
 package org.iesalandalus.programacion.reservashotel.modelo.negocio.memoria;
 
 import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
+import org.iesalandalus.programacion.reservashotel.modelo.negocio.IHuespedes;
 
 import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Huespedes {
+public class Huespedes implements IHuespedes {
 
     //Atributos
     private List<Huesped> coleccionHuespedes;
@@ -24,36 +25,36 @@ public class Huespedes {
     }
 
     //Métodos
-    public List<Huesped> get() {
-        return copiaProfundaHuespedes();
-    }
-
-    private List<Huesped> copiaProfundaHuespedes(){
-        List <Huesped> copiaHuespedes = new ArrayList<>();
-        for (Huesped huesped : coleccionHuespedes) {
-            copiaHuespedes.add(new Huesped(huesped));
+    @Override
+    public List<Huesped> get(){
+        List <Huesped> copiaColeccionHuespedes = new ArrayList<>();
+        for (Huesped i : coleccionHuespedes) {
+            copiaColeccionHuespedes.add(new Huesped(i));
         }
-        return copiaHuespedes;
+        return copiaColeccionHuespedes;
     }
 
+    @Override
     public int getTamano() {
         return coleccionHuespedes.size();
     }
 
-    public void insertar(Huesped huesped) throws OperationNotSupportedException {
+    @Override
+    public void insertar(Huesped huesped) throws IllegalArgumentException {
         if (huesped ==null){
             throw new NullPointerException("ERROR: No se puede insertar " +
-                    "un hu�sped nulo.");
+                    "un huésped nulo.");
         }
         else if (!coleccionHuespedes.contains(huesped)) {
             coleccionHuespedes.add(new Huesped(huesped));
         }
         else {
-            throw new OperationNotSupportedException("ERROR: Ya existe un " +
-                    "hu�sped con ese dni.");
+            throw new IllegalArgumentException("ERROR: Ya existe un " +
+                    "huésped con ese dni.");
         }
     }
 
+    @Override
     public Huesped buscar(Huesped huesped) {
         int indice = coleccionHuespedes.indexOf(huesped);
         if (indice == -1) {
@@ -64,14 +65,16 @@ public class Huespedes {
         }
     }
 
-    public void borrar(Huesped huesped) throws OperationNotSupportedException {
+    @Override
+    public void borrar(Huesped huesped) throws IllegalArgumentException {
         if (huesped == null){
-            throw new NullPointerException("ERROR: No se puede borrar un hu�sped nulo.");
+            throw new NullPointerException("ERROR: No se puede borrar un "
+                    + "hu�sped nulo.");
         }
         int indice = coleccionHuespedes.indexOf(huesped);
         if (indice == -1) {
-            throw new OperationNotSupportedException("ERROR: No existe ning�n hu�sped " +
-                    "como el indicado.");
+            throw new IllegalArgumentException("ERROR: No existe ningún"
+                    + " hu�sped como el indicado.");
         }
         else {
             coleccionHuespedes.remove(indice);
