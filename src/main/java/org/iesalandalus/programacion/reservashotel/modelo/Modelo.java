@@ -6,13 +6,9 @@
 
 package org.iesalandalus.programacion.reservashotel.modelo;
 
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.Habitacion;
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.Huesped;
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.Reserva;
-import org.iesalandalus.programacion.reservashotel.modelo.dominio.TipoHabitacion;
-import org.iesalandalus.programacion.reservashotel.modelo.negocio.memoria.Habitaciones;
-import org.iesalandalus.programacion.reservashotel.modelo.negocio.memoria.Huespedes;
-import org.iesalandalus.programacion.reservashotel.modelo.negocio.memoria.Reservas;
+import org.iesalandalus.programacion.reservashotel.modelo.dominio.*;
+import org.iesalandalus.programacion.reservashotel.modelo.negocio.*;
+import org.iesalandalus.programacion.reservashotel.modelo.negocio.memoria.*;
 
 import javax.naming.OperationNotSupportedException;
 import java.time.LocalDateTime;
@@ -21,13 +17,13 @@ import java.util.List;
 public class Modelo {
 
     //Atributos
-    private Habitaciones habitaciones;
+    private IHabitaciones habitaciones;
 
-    private Reservas reservas;
+    private IReservas reservas;
 
-    private Huespedes huespedes;
+    private IHuespedes huespedes;
 
-    //Constructor
+    //Constructores
 
     public Modelo() {
     }
@@ -42,7 +38,7 @@ public class Modelo {
         System.out.println("Muchas gracias, hasta la próxima.");
     }
 
-    public void insertar(Huesped huesped) throws OperationNotSupportedException {
+    public void insertar(Huesped huesped) throws IllegalArgumentException {
         huespedes.insertar(huesped);
     }
 
@@ -50,7 +46,7 @@ public class Modelo {
         return huespedes.buscar(huesped);
     }
 
-    public void borrar(Huesped huesped) throws OperationNotSupportedException{
+    public void borrar(Huesped huesped) throws IllegalArgumentException{
         huespedes.borrar(huesped);
     }
 
@@ -58,7 +54,7 @@ public class Modelo {
         return huespedes.get();
     }
 
-    public void insertar(Habitacion habitacion) throws OperationNotSupportedException {
+    public void insertar(Habitacion habitacion) throws IllegalArgumentException {
         habitaciones.insertar(habitacion);
     }
 
@@ -66,7 +62,7 @@ public class Modelo {
         return habitaciones.buscar(habitacion);
     }
 
-    public void borrar(Habitacion habitacion) throws OperationNotSupportedException{
+    public void borrar(Habitacion habitacion) throws IllegalArgumentException{
         habitaciones.borrar(habitacion);
     }
 
@@ -78,11 +74,11 @@ public class Modelo {
         return habitaciones.get(tipoHabitacion);
     }
 
-    public void insertar(Reserva reserva) throws OperationNotSupportedException {
+    public void insertar(Reserva reserva) throws IllegalArgumentException {
         reservas.insertar(reserva);
     }
 
-    public void borrar(Reserva reserva) throws OperationNotSupportedException{
+    public void borrar(Reserva reserva) throws IllegalArgumentException{
         reservas.borrar(reserva);
     }
 
